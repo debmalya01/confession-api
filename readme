@@ -1,0 +1,142 @@
+🚀 Setup Guide for Confession API (Windows)
+
+1. Install Prerequisites
+🔹 Install Node.js
+
+Download Node.js LTS
+.
+
+During installation, select Add to PATH.
+
+Verify install:
+
+node -v
+npm -v
+
+🔹 Install PostgreSQL
+
+Download PostgreSQL installer
+.
+
+Install with pgAdmin (GUI) and psql (CLI).
+
+During installation:
+
+Superuser: postgres
+
+Password: set something (e.g., Admin123)
+
+Port: default 5432
+
+Verify install:
+
+psql --version
+
+2. Clone the Project
+
+Open PowerShell and run:
+
+git clone https://github.com/YOUR_USERNAME/confession-api.git
+cd confession-api
+
+3. Setup Environment Variables
+
+Copy example env:
+
+copy .env.example .env
+
+
+Open .env in Notepad/VSCode and update if needed:
+
+DB_USER=confession_user
+DB_PASS=StrongPassword123
+DB_NAME=confession_db
+DB_HOST=127.0.0.1
+PORT=3000
+NODE_ENV=development
+
+4. Create the Database and User
+Option A: Using pgAdmin (easy GUI)
+
+Open pgAdmin.
+
+Login with postgres superuser.
+
+Create new role:
+
+Name: confession_user
+
+Password: StrongPassword123
+
+Privileges: login, create db.
+
+Create new database:
+
+Name: confession_db
+
+Owner: confession_user.
+
+Option B: Using psql (command line)
+
+Open PowerShell:
+
+psql -U postgres -h localhost -W
+
+
+Enter the postgres password, then run:
+
+CREATE USER confession_user WITH PASSWORD 'StrongPassword123';
+CREATE DATABASE confession_db OWNER confession_user;
+GRANT ALL PRIVILEGES ON DATABASE confession_db TO confession_user;
+
+
+Exit:
+
+\q
+
+5. Install Dependencies
+
+Inside project folder:
+
+npm install
+
+6. Run Database Migrations
+npx sequelize-cli db:migrate
+
+
+This will create tables: Users, Confessions, Comments, Likes.
+
+7. Start the API
+npm start
+
+
+If you see:
+
+Server running on http://localhost:3000
+
+
+then 🎉 it’s working.
+
+8. Test the API
+
+Open browser or Postman:
+
+GET http://localhost:3000/ → should show welcome message.
+
+POST http://localhost:3000/users → create a user (if you’ve set that route).
+
+✅ Recap
+
+Install Node.js & Postgres
+
+Clone repo
+
+Copy .env.example → .env
+
+Create Postgres user & database (confession_user, confession_db)
+
+npm install
+
+npx sequelize-cli db:migrate
+
+npm start
