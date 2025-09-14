@@ -103,6 +103,10 @@ npm install
 6. Run Database Migrations
 npx sequelize-cli db:migrate
 
+psql -U confession_user -h 127.0.0.1 -d confession_db
+password: admin
+
+confession_db# <- This means you are inside the db, check with /dt <- to view all tables.
 
 This will create tables: Users, Confessions, Comments, Likes.
 
